@@ -1,0 +1,14 @@
+coverage
+build
+node_modules
+
+# Cruft
+.DS_Store
+npm-debug.log
+.idea
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+yarn-error.log
+.vscode
