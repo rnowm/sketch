@@ -5,7 +5,12 @@ import { Image } from './Image';
 
 const Thumbnail = ({ index, artboard, artBoardOnClick }) => {
   return (
-    <Column center marginAll className="pointer">
+    <Column
+      center
+      marginAll
+      className="pointer"
+      onClick={() => artBoardOnClick(artboard, index)}
+    >
       <Column fit center middle>
         <Image alt={artboard.name} src={artboard.files[0].thumbnails[0].url} />
       </Column>
