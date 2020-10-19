@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { Image } from '../components/Image';
-import { Header, Controls } from '../components/Header';
+import { Image } from '../../components/Image';
+import { Header, Controls } from '../../components/Header';
 import {
   FixedWrapper,
   MainWrapper,
   Content,
   Column,
-} from '../components/Layout';
+} from '../../components/Layout';
 
 const ArtboardDetails = ({ hide, artboard, totalArtboards, indexOnChange }) => (
   <FixedWrapper>
