@@ -1,38 +1,39 @@
-import React from 'react';
+import { useQuery } from '@apollo/client';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { GET_ARTBOARDS } from '../../graphql/data';
 
-import { Image } from '../../components/Image';
-import { Header, Controls } from '../../components/Header';
-import {
-  FixedWrapper,
-  MainWrapper,
-  Content,
-  Column,
-} from '../../components/Layout';
+import View from './view';
 
-const ArtboardDetails = ({ hide, artboard, totalArtboards, indexOnChange }) => (
-  <FixedWrapper>
-    <MainWrapper>
-      <Header title={artboard.data.name || 'Artboard'} marginRight="200">
-        <Controls
-          current={artboard.index + 1}
-          max={totalArtboards}
-          onClose={hide}
-          indexOnChange={indexOnChange}
-        ></Controls>
-      </Header>
-      <Content>
-        <Column middle fit marginTop="24">
-          {artboard.data.files[0]?.url && (
-            <Image
-              large
-              alt={artboard.data.name}
-              src={artboard.data.files[0].url}
-            />
-          )}
-        </Column>
-      </Content>
-    </MainWrapper>
-  </FixedWrapper>
-);
+const ArtboardDetails = () => {
+  const { loading, data } = useQuery(GET_ARTBOARDS);
+  let { index } = useParams();
+  index = parseInt(index);
+
+  const [currentArtboard, setCurrentArtboard] = useState({});
+  const [totalArtboards, setTotalArtboards] = useState(0);
+  const [newIndex, setNewIndex] = useState(index);
+
+  useEffect(() => {
+    updateArtboard(index);
+  }, [data]);
+
+  const updateArtboard = (i) => {
+    const allArtboards = data?.share?.version?.document?.artboards?.entries;
+    if (allArtboards && i) {
+      setCurrentArtboard(allArtboards[i - 1]);
+      setTotalArtboards(allArtboards.length);
+      setNewIndex(i);
+    }
+  };
+
+  return View({
+    loading,
+    index: newIndex,
+    currentArtboard,
+    totalArtboards,
+    updateArtboard,
+  });
+};
 
 export default ArtboardDetails;

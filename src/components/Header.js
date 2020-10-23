@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import SketchIcon from '../assets/images/sketch-logo.svg';
 import CloseIcon from '../assets/images/close.svg';
@@ -90,7 +91,9 @@ export const Controls = ({ current, max, onClose, indexOnChange }) => {
 
   return (
     <Row middle style={{ width: '200px' }}>
-      <Button icon={CloseIcon} alt="close" onClick={() => onClose()} />
+      <Link to={onClose}>
+        <Button icon={CloseIcon} alt="close" />
+      </Link>
       <Separator />
       {current === 1 ? (
         <Row paddingRight="48" />
@@ -120,7 +123,7 @@ Header.propTypes = {
 Controls.propTypes = {
   current: PropTypes.number,
   max: PropTypes.number,
-  onClose: PropTypes.func,
+  onClose: PropTypes.string,
   onPrevious: PropTypes.func,
   onNext: PropTypes.func,
 };

@@ -1,8 +1,19 @@
 import React from 'react';
+
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Artboards from './pages/Artboards';
+import ArtboardDetails from './pages/ArtboardDetails';
 
 function App() {
-  return <Artboards />;
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Artboards} />
+        <Route path="/details/:index" component={ArtboardDetails} />
+        <Route path="" component={Artboards} />
+      </Switch>
+    </Router>
+  );
 }
 
 export default App;
